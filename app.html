@@ -29,6 +29,7 @@
     <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
     <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'>
     <link href="assets/css/pe-icon-7-stroke.css" rel="stylesheet" />
+    <link rel="stylesheet" href="css/circle.css">
 
 </head>
 <body>
@@ -55,6 +56,12 @@
                     <a href="dashboard.html">
                         <i class="pe-7s-graph"></i>
                         <p>Dashboard</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="pe-7s-note2"></i>
+                        <p>System Info</p>
                     </a>
                 </li>
                 <li class="active">
@@ -87,46 +94,87 @@
         <div class="content">
             <div class="container-fluid">
                 <div class="row">
+                    <div class="col-md-12">
+                        <div class="card card-plain">
+                            <div class="header">
+                                <h4 class="title">Deatils</h4>
+                                <p class="category">IP : </p>
+                                <p class="category">Host : </p>
+                            </div>
+                            <div class="content table-responsive table-full-width">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <th>Application Name</th>
+                                        <th>CPU</th>
+                                        <th>RAM</th>
+                                        <th>Command</th>
+                                        <th>Docker Image</th>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>0</td>
+                                            <td>0</td>
+                                            <td>0</td>
+                                            <td>0</td>
+                                            <td>0</td>
+                                        </tr>
+                                      </tbody>
+                                </table>
+
+                            </div>
+                        </div>
+                    </div>
                     <div class="col-md-4">
                         <div class="card">
                             <div class="header">
-                                <h4 class="title">Task A</h4>
-                                <p class="category">ABC XYZ</p>
+                                <h4 class="title">CPU</h4>
+
                             </div>
                             <div class="content">
-                                <div id="chartPreferences" class="ct-chart ct-perfect-fourth"></div>
+                                <div class="clearfix" style="padding-left:20px;">
 
+                                    <div class="c100 p50 big">
+                                        <span>50%</span>
+                                        <div class="slice">
+                                            <div class="bar"></div>
+                                            <div class="fill"></div>
+                                        </div>
+                                     </div>
+                                </div>
 
 
                                 <div class="footer">
-                                    <div class="legend">
-                                        <i class="fa fa-circle text-info"></i> A
-                                        <i class="fa fa-circle text-danger"></i> B
-                                        <i class="fa fa-circle text-warning"></i> C
-                                    </div>
+
                                     <hr>
                                     <div class="stats">
-                                        <i class="fa fa-clock-o"></i> Launched 3 hours ago
+                                        <i class="fa fa-clock-o"></i> Updated 3 minutes ago
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <div class="col-md-8">
+                    <div class="col-md-4">
                         <div class="card">
                             <div class="header">
-                                <h4 class="title">Application Behaviour </h4>
-                                <p class="category">Performance Data</p>
+                                <h4 class="title">MEMORY</h4>
+
                             </div>
                             <div class="content">
-                                <div id="chartHours" class="ct-chart"></div>
+
+                                <div class="clearfix" style="padding-left:20px;">
+
+                                    <div class="c100 p50 big">
+                                        <span>50%</span>
+                                        <div class="slice">
+                                            <div class="bar"></div>
+                                            <div class="fill"></div>
+                                        </div>
+                                     </div>
+                                </div>
+
                                 <div class="footer">
-                                    <div class="legend">
-                                        <i class="fa fa-circle text-info"></i> a
-                                        <i class="fa fa-circle text-danger"></i> b
-                                        <i class="fa fa-circle text-warning"></i> c
-                                    </div>
+
                                     <hr>
                                     <div class="stats">
                                         <i class="fa fa-history"></i> Updated 3 minutes ago
@@ -135,6 +183,35 @@
                             </div>
                         </div>
                     </div>
+                    <div class="col-md-4">
+                        <div class="card">
+                            <div class="header">
+                                <h4 class="title">THROUGHPUT</h4>
+
+                            </div>
+                            <div class="content">
+
+                                <div class="clearfix" style="padding-left:20px;">
+
+                                    <div class="c100 p50 big">
+                                        <span>50%</span>
+                                        <div class="slice">
+                                            <div class="bar"></div>
+                                            <div class="fill"></div>
+                                        </div>
+                                     </div>
+                                </div>
+
+                                <div class="footer">
+
+                                    <hr>
+                                    <div class="stats">
+                                        <i class="fa fa-history"></i> Updated 3 minutes ago
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                     </div>
 
                     <div class="col-md-12">
                         <div class="card">
@@ -144,7 +221,7 @@
                             </div>
                             <div class="content">
                                 <div>
-                                    <textarea id="log"  style="width: 100%; height: 300px; padding: 12px 20px; box-sizing: border-box;
+                                    <textarea id="log" style="width: 100%; height: 300px; padding: 12px 20px; box-sizing: border-box;
                                     border: 1px solid #ccc;border-radius: 4px;background-color: #f8f8f8;font-size: 16px; resize: none;">
 
                                     </textarea>
@@ -205,5 +282,6 @@
 	<script src="assets/js/demo.js"></script>
 
   <script src="assets/js/getLog.js"></script>
+
 
 </html>

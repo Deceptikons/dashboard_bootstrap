@@ -40,6 +40,20 @@ var obj = {
     obj.xhr.onreadystatechange = obj.display;
     obj.xhr.open("GET" , "http://10.10.1.71:8123/v1/hosts/"+appID+".MyMesosDockerExample.mesos")
     obj.xhr.send();
+  },
+  getSlaves : function(){
+
+    obj.xhr.onreadystatechange = obj.appendSlave;
+    obj.xhr.open("GET" , "http://127.0.0.1:5000/getSlaves");
+    obj.xhr.send();
+  },
+  appendSlave : function(){
+    if(obj.xhr.readyState == 4 && obj.xhr.status== 200){
+    var data = JSON.parse(this.responseText);
+    var elem = document.getElementById("slaves");
+    elem.innerHTML+="<div class='col-md-4'><div class='card'><div class='header'><h5 class='title'>"+data["hostname"]+"</h5><button class='btn btn-info btn-fill pull-right' onclick='window.location.href='./system.html'> View </button></div><div class='content'><div class='footer'><hr><div class='stats'><i class='fa fa-clock-o'></i> Updated 3 minutes ago</div></div></div></div></div>"
   }
+  }
+
 }
 //obj.getData("get");

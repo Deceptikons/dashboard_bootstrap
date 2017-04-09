@@ -3,6 +3,7 @@
 <head>
 	<meta charset="utf-8" />
 	<link rel="icon" type="image/png" href="assets/img/favicon.ico">
+	<link href="assets/css/examples.css" rel="stylesheet" type="text/css">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 
 	<title>Chidori</title>
@@ -29,6 +30,7 @@
     <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
     <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'>
     <link href="assets/css/pe-icon-7-stroke.css" rel="stylesheet" />
+
 
 </head>
 <body>
@@ -59,6 +61,12 @@
                 </li>
                 <li>
                     <a href="#">
+                        <i class="pe-7s-note2"></i>
+                        <p>System Info</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
                         <i class="pe-7s-news-paper"></i>
                         <p>Application</p>
                     </a>
@@ -85,12 +93,75 @@
 
         <div class="content">
             <div class="container-fluid">
-                <div class="row">
+                <div class="row" id="slaves">
+                    <div class="col-md-4">
+                        <div class="card">
+                            <div class="header">
+
+                                <h5 class="title">System 1</h5>
+                                <button class="btn btn-info btn-fill pull-right" onclick="window.location.href='./system.html'"> View </button>
+
+                            </div>
+                            <div class="content">
+
+                                <div class="footer">
+
+                                    <hr>
+                                    <div class="stats">
+                                        <i class="fa fa-clock-o"></i> Updated 3 minutes ago
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="card">
+                            <div class="header">
+
+                                <h5 class="title">System 2</h5>
+                                <button class="btn btn-info btn-fill pull-right" onclick="window.location.href='./system.html'"> View </button>
+
+                            </div>
+                            <div class="content">
+
+                                <div class="footer">
+
+                                    <hr>
+                                    <div class="stats">
+                                        <i class="fa fa-history"></i> Updated 3 minutes ago
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card">
+                            <div class="header">
+
+                                <h5 class="title">System 3</h5>
+                                <button class="btn btn-info btn-fill pull-right" onclick="window.location.href='./system.html'"> View </button>
+
+                            </div>
+                            <div class="content">
+
+                                <div class="footer">
+
+                                    <hr>
+                                    <div class="stats">
+                                        <i class="fa fa-history"></i> Updated 3 minutes ago
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                    </div>
+
                     <div class="col-md-12">
                         <div class="card">
                             <div class="header">
                                 <button class="btn btn-info btn-fill pull-right" onclick="window.location.href='./app.html'"> View </button>
-                                <h4 class="title">Application A</h4> 
+                                <h5 class="title">Application A</h5>
 
 
                             </div>
@@ -105,11 +176,45 @@
                     </div>
                 </div>
             </div>
-           
+						<button onclick="obj.getSlaves()">CLICK</button>
+						<div id="content1">
+
+		 		 		<div class="demo-container">
+		 		 			<div id="placeholder" class="demo-placeholder" style="padding: 0px; position: relative;"><canvas class="flot-base" style="direction: ltr; position: absolute; left: 0px; top: 0px; width: 818px; height: 413px;" width="818" height="413"></canvas><div class="flot-text" style="position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px; font-size: smaller; color: rgb(84, 84, 84);"><div class="flot-x-axis flot-x1-axis xAxis x1Axis" style="position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px; display: block;"><div style="position: absolute; max-width: 81px; top: 394px; left: 10px; text-align: center;" class="flot-tick-label tickLabel">1999</div><div style="position: absolute; max-width: 81px; top: 394px; left: 97px; text-align: center;" class="flot-tick-label tickLabel">2000</div><div style="position: absolute; max-width: 81px; top: 394px; left: 184px; text-align: center;" class="flot-tick-label tickLabel">2001</div><div style="position: absolute; max-width: 81px; top: 394px; left: 271px; text-align: center;" class="flot-tick-label tickLabel">2002</div><div style="position: absolute; max-width: 81px; top: 394px; left: 358px; text-align: center;" class="flot-tick-label tickLabel">2003</div><div style="position: absolute; max-width: 81px; top: 394px; left: 446px; text-align: center;" class="flot-tick-label tickLabel">2004</div><div style="position: absolute; max-width: 81px; top: 394px; left: 533px; text-align: center;" class="flot-tick-label tickLabel">2005</div><div style="position: absolute; max-width: 81px; top: 394px; left: 620px; text-align: center;" class="flot-tick-label tickLabel">2006</div><div style="position: absolute; max-width: 81px; top: 394px; left: 707px; text-align: center;" class="flot-tick-label tickLabel">2007</div><div style="position: absolute; max-width: 81px; top: 394px; left: 794px; text-align: center;" class="flot-tick-label tickLabel">2008</div></div><div class="flot-y-axis flot-y1-axis yAxis y1Axis" style="position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px; display: block;"><div style="position: absolute; top: 381px; left: 2px; text-align: right;" class="flot-tick-label tickLabel">0.5</div><div style="position: absolute; top: 326px; left: 2px; text-align: right;" class="flot-tick-label tickLabel">1.0</div><div style="position: absolute; top: 272px; left: 2px; text-align: right;" class="flot-tick-label tickLabel">1.5</div><div style="position: absolute; top: 218px; left: 2px; text-align: right;" class="flot-tick-label tickLabel">2.0</div><div style="position: absolute; top: 163px; left: 2px; text-align: right;" class="flot-tick-label tickLabel">2.5</div><div style="position: absolute; top: 109px; left: 2px; text-align: right;" class="flot-tick-label tickLabel">3.0</div><div style="position: absolute; top: 55px; left: 2px; text-align: right;" class="flot-tick-label tickLabel">3.5</div><div style="position: absolute; top: 1px; left: 2px; text-align: right;" class="flot-tick-label tickLabel">4.0</div></div></div><canvas class="flot-overlay" style="direction: ltr; position: absolute; left: 0px; top: 0px; width: 818px; height: 413px;" width="818" height="413"></canvas><div class="legend"><div style="position: absolute; width: 106px; height: 27px; top: 14px; right: 17px; background-color: rgb(255, 255, 255); opacity: 0.85;"> </div><table style="position:absolute;top:14px;right:17px;;font-size:smaller;color:#545454"><tbody><tr><td class="legendColorBox"><div style="border:1px solid #ccc;padding:1px"><div style="width:4px;height:0;border:5px solid rgb(237,194,64);overflow:hidden"></div></div></td><td class="legendLabel">Europe (EU27)</td></tr></tbody></table></div></div>
+		 		 		</div>
+
+
+
+		 		 		<p>
+		 		 			<button class="fetchSeries">First dataset</button>
+		 		 			[ <a href="http://127.0.0.1:1234/getIdle?cpu=0">see data</a> ]
+		 		 			<span>Fetched Europe (EU27), first point: (1999, 3)</span>
+		 		 		</p>
+
+		 		 		<p>
+		 		 			<button class="fetchSeries">Second dataset</button>
+		 		 			[ <a href="http://127.0.0.1:1234/getIdle?cpu=1">see data</a> ]
+		 		 			<span>Fetched Japan, first point: (1999, -0.1)</span>
+		 		 		</p>
+
+		 		 		<p>
+		 		 			<button class="fetchSeries">Third dataset</button>
+		 		 			[ <a href="http://127.0.0.1:1234/getIdle?cpu=2">see data</a> ]
+		 		 			<span>Fetched USA, first point: (1999, 4.4)</span>
+		 		 		</p>
+
+		 		 		<p>If you combine AJAX with setTimeout, you can poll the server for new data.</p>
+
+		 		 		<p>
+		 		 			<button class="dataUpdate">Poll for data</button>
+		 		 		</p>
+
+		 		 	</div>
+
        <footer class="footer">
             <div class="container-fluid">
                 <nav class="pull-left">
-                    
+
                 </nav>
                 <p class="copyright pull-right">
                    C H I D O R I
@@ -133,6 +238,8 @@
 	<!--  Charts Plugin -->
 	<script src="assets/js/chartist.min.js"></script>
 
+<script src="assets/js/getLog.js"></script>
+
     <!--  Notifications Plugin    -->
     <script src="assets/js/bootstrap-notify.js"></script>
 
@@ -145,6 +252,9 @@
 	<!-- Light Bootstrap Table DEMO methods, don't include it in your project! -->
 	<script src="assets/js/demo.js"></script>
 
+	<script language="javascript" type="text/javascript" src="assets/js/jquery.js"></script>
+	<script language="javascript" type="text/javascript" src="assets/js/jquery_002.js"></script>
+<!--
 	<script type="text/javascript">
     	$(document).ready(function(){
 
@@ -161,5 +271,120 @@
 
     	});
 	</script>
+-->
+<script type="text/javascript">
 
+$(function() {
+
+	var options = {
+		lines: {
+			show: true
+		},
+		points: {
+			show: true
+		},
+		xaxis: {
+			tickDecimals: 0,
+			tickSize: 1
+		}
+	};
+
+	var data = [];
+
+	$.plot("#placeholder", data, options);
+
+	// Fetch one series, adding to what we already have
+
+	var alreadyFetched = {};
+
+	$("button.fetchSeries").click(function () {
+
+		var button = $(this);
+
+		// Find the URL in the link right next to us, then fetch the data
+
+		var dataurl = button.siblings("a").attr("href");
+
+		function onDataReceived(series) {
+
+			// Extract the first coordinate pair; jQuery has parsed it, so
+			// the data is now just an ordinary JavaScript object
+
+			var firstcoordinate = "(" + series.data[0][0] + ", " + series.data[0][1] + ")";
+			button.siblings("span").text("Fetched " + series.label + ", first point: " + firstcoordinate);
+
+			// Push the new data onto our existing data array
+
+			if (!alreadyFetched[series.label]) {
+				alreadyFetched[series.label] = true;
+				data.push(series);
+			}
+
+			$.plot("#placeholder", data, options);
+		}
+
+		$.ajax({
+			url: dataurl,
+			type: "GET",
+			dataType: "json",
+			success: onDataReceived
+		});
+	});
+
+	// Initiate a recurring data update
+
+	$("button.dataUpdate").click(function () {
+
+		data = [];
+		alreadyFetched = {};
+
+		$.plot("#placeholder", data, options);
+
+		var iteration = 0;
+
+		function fetchData() {
+
+			++iteration;
+
+			function onDataReceived(series) {
+
+				// Load all the data in one pass; if we only got partial
+				// data we could merge it with what we already have.
+
+				data = [ series ];
+				$.plot("#placeholder", data, options);
+			}
+
+			// Normally we call the same URL - a script connected to a
+			// database - but in this case we only have static example
+			// files, so we need to modify the URL.
+
+			$.ajax({
+				url: "data-eu-gdp-growth-" + iteration + ".json",
+				type: "GET",
+				dataType: "json",
+				success: onDataReceived
+			});
+
+			if (iteration < 5) {
+				setTimeout(fetchData, 1000);
+			} else {
+				data = [];
+				alreadyFetched = {};
+			}
+		}
+
+		setTimeout(fetchData, 1000);
+	});
+
+	// Load the first series by default, so we don't have an empty plot
+
+	$("button.fetchSeries:first").click();
+
+	// Add the Flot version string to the footer
+
+	$("#footer").prepend("Flot " + $.plot.version + " &ndash; ");
+});
+
+</script>
 </html>
