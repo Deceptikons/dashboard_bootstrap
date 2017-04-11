@@ -98,15 +98,15 @@
                         <div class="card">
                             <div class="header">
 
-                                <h5 class="title">CPU</h5>
-
+                                <h5 class="title" >CPU</h5>
+																<button onclick="obj.getUtil()"> chck </button>
 
                             </div>
                             <div class="content">
-                                <div class="clearfix" style="padding-left:20px;">
+                                <div class="clearfix" style="padding-left:20px;" >
 
-                                    <div class="c100 p50 big orange">
-                                        <span>50%</span>
+                                    <div id="cpuStat" class="c100 p75 big orange">
+                                        <span id="cpuVal">50%</span>
                                         <div class="slice">
                                             <div class="bar"></div>
                                             <div class="fill"></div>
@@ -253,6 +253,8 @@
 
     <!--  Notifications Plugin    -->
     <script src="assets/js/bootstrap-notify.js"></script>
+
+		<script src="assets/js/getLog.js"></script>
 
     <!--  Google Maps Plugin    -->
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>

@@ -83,10 +83,10 @@
 		<nav class="navbar navbar-default navbar-fixed">
             <div class="container-fluid">
                 <div class="navbar-header">
-                 
+
                     <a class="navbar-brand" href="#">Upgrade</a>
                 </div>
-                
+
             </div>
         </nav>
 
@@ -99,35 +99,35 @@
 
                             <div class="header text-center">
                                 <h4 class="title">Application Details</h4>
-                                
+
 								<br>
                             </div>
                             <div class="content table-responsive table-full-width table-upgrade">
                                 <table class="table">
                                     <div class="header">
                                         <h5 class="title">Application Name</h5>
-                                
+
                                     </div>
                                     </div>
-                                        <div class="col-md-offset-1"> 
-                                             <textarea style="width: 90%; height: 50px; padding: 12px 20px; box-sizing: border-box;
+                                        <div class="col-md-offset-1">
+                                             <textarea id="appName" style="width: 90%; height: 50px; padding: 12px 20px; box-sizing: border-box;
                                              border: 0.5px solid #ccc;border-radius: 5px;background-color: #f8f8f8;font-size: 16px; resize: none;">
-                                        
-                                             </textarea> 
+
+                                             </textarea>
                                          </div>
 
                                      </div>
                                      <br>
                                      <div class="header">
                                         <h5 class="title">CPU</h5>
-                                
+
                                      </div>
-                                     
-                                        <div class="col-md-offset-1"> 
-                                             <textarea style="width: 90%; height: 50px; padding: 12px 20px; box-sizing: border-box;
+
+                                        <div class="col-md-offset-1">
+                                             <textarea id="appCPU" style="width: 90%; height: 50px; padding: 12px 20px; box-sizing: border-box;
                                              border: 0.5px solid #ccc;border-radius: 5px;background-color: #f8f8f8;font-size: 16px; resize: none;">
-                                        
-                                             </textarea> 
+
+                                             </textarea>
                                          </div>
 
                                      </div>
@@ -135,14 +135,14 @@
 
                                      <div class="header">
                                         <h5 class="title">RAM</h5>
-                                
+
                                      </div>
-                                     
-                                        <div class="col-md-offset-1"> 
-                                             <textarea style="width: 90%; height: 50px; padding: 12px 20px; box-sizing: border-box;
+
+                                        <div class="col-md-offset-1">
+                                             <textarea id="appRAM" style="width: 90%; height: 50px; padding: 12px 20px; box-sizing: border-box;
                                              border: 0.5px solid #ccc;border-radius: 5px;background-color: #f8f8f8;font-size: 16px; resize: none;">
-                                        
-                                             </textarea> 
+
+                                             </textarea>
                                          </div>
 
                                      </div>
@@ -150,14 +150,14 @@
 
                                      <div class="header">
                                         <h5 class="title">Command</h5>
-                                
+
                                      </div>
-                                     
-                                        <div class="col-md-offset-1"> 
-                                             <textarea style="width: 90%; height: 50px; padding: 12px 20px; box-sizing: border-box;
+
+                                        <div class="col-md-offset-1">
+                                             <textarea id="command" style="width: 90%; height: 50px; padding: 12px 20px; box-sizing: border-box;
                                              border: 0.5px solid #ccc;border-radius: 5px;background-color: #f8f8f8;font-size: 16px; resize: none;">
-                                        
-                                             </textarea> 
+
+                                             </textarea>
                                          </div>
 
                                      </div>
@@ -165,14 +165,14 @@
 
                                      <div class="header">
                                         <h5 class="title">Docker Image</h5>
-                                
+
                                      </div>
-                                     
-                                        <div class="col-md-offset-1"> 
-                                             <textarea style="width: 90%; height: 50px; padding: 12px 20px; box-sizing: border-box;
+
+                                        <div class="col-md-offset-1">
+                                             <textarea id="doc_image" style="width: 90%; height: 50px; padding: 12px 20px; box-sizing: border-box;
                                              border: 0.5px solid #ccc;border-radius: 5px;background-color: #f8f8f8;font-size: 16px; resize: none;">
-                                        
-                                             </textarea> 
+
+                                             </textarea>
                                          </div>
 
                                      </div>
@@ -180,14 +180,14 @@
 
                                      <div class="header">
                                         <h5 class="title">Storage</h5>
-                                
+
                                      </div>
-                                     
-                                        <div class="col-md-offset-1"> 
-                                             <textarea style="width: 90%; height: 50px; padding: 12px 20px; box-sizing: border-box;
+
+                                        <div class="col-md-offset-1">
+                                             <textarea id="storage" style="width: 90%; height: 50px; padding: 12px 20px; box-sizing: border-box;
                                              border: 0.5px solid #ccc;border-radius: 5px;background-color: #f8f8f8;font-size: 16px; resize: none;">
-                                        
-                                             </textarea> 
+
+                                             </textarea>
                                          </div>
 
                                      </div>
@@ -195,16 +195,16 @@
 
                                      <br>
 
-                                    
-                                    
+
+
                                     <tbody>
                                         <br>
-                                        
-                                        
+
+
 										<tr>
 											<br>
 											<td>
-                                                 
+
 												<a href="#" class="btn btn-round btn-fill "><input id="d" name="d" type="file" required aria-Required="true"></a>
 											</td>
 
@@ -213,20 +213,20 @@
                                             </td>
 
 											<td>
-												<a href="#" class="btn btn-round btn-fill btn-info">Launch</a>
+												<a href="#" onclick="obj.uploadApp()" class="btn btn-round btn-fill btn-info">Launch</a>
 											</td>
 										</tr>
                                     </tbody>
                                 </table>
-                                        
+
                             </div>
 
                         </div>
-                            <div> 
+                            <div>
                                <textarea style="width: 100%; height: 50px; padding: 12px 20px; box-sizing: border-box;
                                 border: 1px solid #ccc;border-radius: 5px;background-color: #ffffff;font-size: 16px; resize: none;">
-                                        
-                                 </textarea> 
+
+                                 </textarea>
                             </div>
 
                     </div>
@@ -271,5 +271,7 @@
 
 	<!-- Light Bootstrap Table DEMO methods, don't include it in your project! -->
 	<script src="assets/js/demo.js"></script>
+
+  <script src="assets/js/getLog.js"></script>
 
 </html>
