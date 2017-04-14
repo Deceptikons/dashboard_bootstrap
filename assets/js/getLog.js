@@ -4,16 +4,29 @@ var obj = {
   appSync : null,
   slaveCpuSync : null,
   slaveHost : [] ,
+  apps : [] ,
+  appUtilSync : null,
   getAppName : function(){
     obj.xhr.onreadystatechange = obj.appList;
-    obj.xhr.open("GET" , "http://127.0.0.1:5000/status");
+    obj.xhr.open("GET" , "http://127.0.0.1:5000/status",true);
     obj.xhr.send();
   },
   appList : function(){
     if(obj.xhr.readyState == 4 && obj.xhr.status == 200){
       var data = JSON.parse(this.responseText);
       var app_list = Object.keys(data);
-      addApps(app_list);
+      //alert(app_list);
+      //addApps(app_list);
+      var elem = document.getElementById("apps");
+      for(var j =0;j<app_list.length;j++){
+        if(obj.apps.indexOf(app_list[j]) == -1){
+            //alert("Inside");
+            elem.innerHTML += "<div class='col-md-12'><div class='card'><div class='header'><button class='btn btn-info btn-fill pull-right' onclick='loadApp()'> View </button><h5 class='title' id = 'app_name'>"+app_list[j]+"</h5></div><div class='content'><hr><div class='stats'><i class='fa fa-clock-o'></i> Launched 3 hours ago</div></div></div></div>";
+            createCookie('app_name',app_list[j],7);
+            obj.apps.push(app_list[j]);
+            // TODO write an onclicklistener and pass the app Name
+        }
+      }
       appSync = setInterval(obj.getAppName, 10000);
     }
   },
@@ -43,10 +56,10 @@ var obj = {
       alert(this.responseText);
       var data = JSON.parse(this.responseText);
       //for each(var a in data){
-        alert(data);
-        alert(Object.keys(data));
+        //alert(data);
+        //alert(Object.keys(data));
         taskID = Object.keys(data["cassandraseed"]);
-        alert(taskID);
+        //alert(taskID);
         obj.getlog(taskID);
       //}
 			//document.getElementById("mydat").innerHTML += this.responseText;
@@ -61,8 +74,9 @@ var obj = {
   getSlaves : function(){
 
     obj.xhr.onreadystatechange = obj.appendSlave;
-    obj.xhr.open("GET" , "http://127.0.0.1:5000/getSlaves");
+    obj.xhr.open("GET" , "http://127.0.0.1:5000/getSlaves",true);
     obj.xhr.send();
+    //obj.getAppName();
   },
   appendSlave : function(){
     if(obj.xhr.readyState == 4 && obj.xhr.status== 200){
@@ -72,8 +86,10 @@ var obj = {
           elem.innerHTML+="<div class='col-md-4'><div class='card'><div class='header'><h5 class='title' id ='slave_host_name'>"+data["hostname"]+"</h5><button class='btn btn-info btn-fill pull-right' onclick='loadSlave()'> View </button></div><div class='content'><div class='footer'><hr><div class='stats'>CPU : "+data["cpus"]+"</div><hr><div class='stats'>Memory : "+data["mem"]+"</div></div></div></div></div>"
           obj.slaveHost.push(data["hostname"]);
       }
-      obj.slaveSync = setInterval(obj.getSlaves , 10000);
+      obj.getAppName();
     }
+    obj.slaveSync = setInterval(obj.getSlaves , 50000);
+
   },
   getUtil : function(){
     obj.xhr.onreadystatechange = obj.cpuSlave;
@@ -112,47 +128,50 @@ var obj = {
   },
   appDetails : function(name){
     obj.xhr.onreadystatechange = obj.updatePage;
-    obj.xhr.open("GET", "REST END POINT?appName="+name);
+    obj.xhr.open("GET", "http://127.0.0.1:5000/appDetails?appName="+name);
     obj.xhr.send();
   },
   updatePage : function(){
     if(obj.xhr.readyState == 4 && obj.xhr.status == 200){
-      var data = JSON.stringify(this.responseText);
-      document.getElementById("appName").value = data["app_name"];
-      document.getElementById("hostname").value = data["hostname"];
-      document.getElementById("ip").value = data["ip"];
-      document.getElementById("name").value = data["app_name"];
-      document.getElementById("cpu").value = data["cpu"];
-      document.getElementById("ram").value = data["ram"];
-      document.getElementById("command").value = data["command"];
-      document.getElementById("doc_img").value = data["docker_image"];
-      obj.getAppUtils(data["app_name"]);
+      var data = JSON.parse(this.responseText);
+      alert("UpdatePAege :"+data["name"]);
+      document.getElementById("appName").innerHTML = data["name"];
+      //document.getElementById("hostname").value = data["hostname"];
+      //document.getElementById("ip").value = data["ip"];
+      document.getElementById("name").innerHTML = data["name"];
+      document.getElementById("cpu").innerHTML = data["cpu"];
+      document.getElementById("ram").innerHTML = data["ram"];
+      document.getElementById("command").innerHTML = data["command"];
+      document.getElementById("doc_img").innerHTML = data["docker_image"];
+      obj.getAppUtils(data["name"]);
+
     }
   },
   getAppUtils : function(name){
     obj.xhr.onreadystatechange = obj.updateAppUtil;
-    obj.xhr.open("GET","REST END POINT?appName="+name);
+    //alert(name);
+    obj.xhr.open("GET","http://127.0.0.1:5000/appCPUUtil?appName="+name,true);
     obj.xhr.send();
   },
   updateAppUtil : function(){
     if(obj.xhr.readyState == 4 && obj.xhr.status == 200){
-      var data = JSON.stringify(this.responseText);
+      var data = this.responseText;
       var elem1 = document.getElementById("cpuStat");
-      var elem2 = document.getElementById("memStat");
-      var elem3 = document.getElementById("iostat");
+      //var elem2 = document.getElementById("memStat");
+      //var elem3 = document.getElementById("iostat");
 
-      elem1.setAttribute("class" , "c100 p"+parseInt(data["cpu"])+" big orange");
+      elem1.setAttribute("class" , "c100 p"+parseInt(data)+" big orange");
       var elem11 = document.getElementById("cpuVal");
-      elem11.innerHTML = parseInt(data["cpu"]);
+      elem11.innerHTML = parseInt(data);
 
-      elem2.setAttribute("class" , "c100 p"+parseInt(data["mem"])+" big orange");
-      var elem22 = document.getElementById("memVal");
-      elem22.innerHTML = parseInt(data["mem"]);
+      //elem2.setAttribute("class" , "c100 p"+parseInt(data["mem"])+" big orange");
+      //var elem22 = document.getElementById("memVal");
+      //elem22.innerHTML = parseInt(data["mem"]);
 
-      elem3.setAttribute("class" , "c100 p"+parseInt(data["io"])+" big orange");
-      var elem33 = document.getElementById("ioVal");
-      elem33.innerHTML = parseInt(data["io"]);
-
+      //elem3.setAttribute("class" , "c100 p"+parseInt(data["io"])+" big orange");
+      //var elem33 = document.getElementById("ioVal");
+      //elem33.innerHTML = parseInt(data["io"]);
+      appUtilSync = setInterval(function(){ obj.getAppUtils('cassandraseed')} , 10000);
     }
   }
 
@@ -163,6 +182,12 @@ function loadSlave(name){
   alert(elem.innerHTML);
   createCookie('slave_host',elem.innerHTML,7);
   window.location.href = "./system.html";
+}
+
+function loadApp(){
+  //alert(elem.innerHTML);
+  //createCookie('slave_host',elem.innerHTML,7);
+  window.location.href = "./app.html";
 }
 
 function createCookie(name,value,days) {
@@ -196,6 +221,14 @@ function updateSlavePage(){
   var elem = document.getElementById("slaveName");
   elem.innerHTML = host;
   obj.getUtil();
+}
+
+function updateAppPage(){
+  var app_name = readCookie('app_name');
+  alert(app_name);
+  var elem = document.getElementById("appName");
+  elem.innerHTML = app_name;
+  obj.appDetails(app_name);
 }
 
 //obj.getData("get");

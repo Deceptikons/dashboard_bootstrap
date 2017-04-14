@@ -30,7 +30,7 @@
     <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'>
     <link href="assets/css/pe-icon-7-stroke.css" rel="stylesheet" />
     <link rel="stylesheet" href="css/circle.css">
-
+    <script src="assets/js/getLog.js"></script>
 </head>
 <body>
 
@@ -133,8 +133,8 @@
                             <div class="content">
                                 <div class="clearfix" style="padding-left:20px;">
 
-                                    <div class="c100 p50 big">
-                                        <span>50%</span>
+                                    <div id="cpuStat" class="c100 p50 big">
+                                        <span id="cpuVal">50%</span>
                                         <div class="slice">
                                             <div class="bar"></div>
                                             <div class="fill"></div>
@@ -256,6 +256,7 @@
     </div>
 </div>
 
+<script type="text/javascript"> updateAppPage() </script>
 
 </body>
 
@@ -281,7 +282,7 @@
 	<!-- Light Bootstrap Table DEMO methods, don't include it in your project! -->
 	<script src="assets/js/demo.js"></script>
 
-  <script src="assets/js/getLog.js"></script>
+
 
 
 </html>
