@@ -34,16 +34,38 @@ var obj = {
     if(obj.xhr.readyState == 4 && obj.xhr.status == 200){
       var data = JSON.parse(this.responseText);
       var app_list = Object.keys(data);
-      //alert(app_list);
+      alert(app_list);
       //addApps(app_list);
       var elem = document.getElementById("apps");
       for(var j =0;j<app_list.length;j++){
+        alert("gg"+app_list[j]);
         if(obj.apps.indexOf(app_list[j]) == -1){
-            //alert("Inside");
+            alert("Inside"+app_list[j]);
             var taskid = Object.values(data[app_list[j]])[0];
             //alert(taskid);
-            elem.innerHTML += "<div class='col-md-12' id = 'j'"+j.toString()+"><div class='card'><div class='header'><button class='btn btn-info btn-fill pull-right' onclick='loadApp()'> View </button><h5 class='title' id = 'app_name'>"+app_list[j]+"  "+taskid+"</h5></div><div class='content'><hr><div class='stats'><i class='fa fa-clock-o'></i> Launched 3 hours ago</div></div></div></div>";
-            createCookie('app_name',app_list[j],7);
+            //elem.innerHTML += "<div class='col-md-12' id = 'j'"+j.toString()+"><div class='card'><div class='header'><button class='btn btn-info btn-fill pull-right' onclick='loadApp()'> View </button><h5 class='title' id = 'app_name'>"+app_list[j]+"  "+taskid+"</h5></div><div class='content'><hr><div class='stats'><i class='fa fa-clock-o'></i> Launched 3 hours ago</div></div></div></div>";
+            //createCookie('app_name',app_list[j],7);
+            var outterDiv = document.createElement("div");
+            outterDiv.setAttribute("class" , "col-md-12");
+            outterDiv.setAttribute("id" , "j");
+            var innerDiv = document.createElement("div");
+            innerDiv.setAttribute("class" , "card");
+            var innerDiv1 = document.createElement("div");
+            innerDiv1.setAttribute("class" , "header");
+            var button = document.createElement("button");
+            button.setAttribute("class" , "btn btn-info btn-fill pull-right");
+            alert(app_list[j]);
+            button.setAttribute("id" , app_list[j]);
+            button.addEventListener("click",function(){ alert(this.id);loadApp(this.id);});
+            button.innerHTML="View";
+            var text = document.createElement("h5");
+            text.setAttribute("class" ,"title");
+            text.innerHTML = app_list[j]+"    "+taskid;
+            innerDiv1.appendChild(button);
+            innerDiv1.appendChild(text);
+            innerDiv.appendChild(innerDiv1);
+            outterDiv.appendChild(innerDiv);
+            elem.appendChild(outterDiv);
             obj.apps.push(app_list[j]);
             // TODO write an onclicklistener and pass the app Name
         }
@@ -114,7 +136,45 @@ var obj = {
       alert(data[j]["hostname"]);
       if(obj.slaveHost.indexOf(data[j]["hostname"]) == -1){
           var elem = document.getElementById("slaves");
-          elem.innerHTML+="<div class='col-md-4'><div class='card'><div class='header'><h5 class='title' id ='slave_host_name'>"+data[j]["hostname"]+"</h5><button class='btn btn-info btn-fill pull-right' onclick='loadSlave()'> View </button></div><div class='content'><div class='footer'><hr><div class='stats'>CPU : "+data[j]["cpus"]+"</div><hr><div class='stats'>Memory : "+data[j]["mem"]+"</div></div></div></div></div>"
+          //elem.innerHTML+="<div class='col-md-4'><div class='card'><div class='header'><h5 class='title' id ='slave_host_name'>"+data[j]["hostname"]+"</h5><button class='btn btn-info btn-fill pull-right' onclick='loadSlave()'> View </button></div><div class='content'><div class='footer'><hr><div class='stats'>CPU : "+data[j]["cpus"]+"</div><hr><div class='stats'>Memory : "+data[j]["mem"]+"</div></div></div></div></div>"
+       
+            var outterDiv = document.createElement("div");
+            outterDiv.setAttribute("class" , "col-md-4");
+            outterDiv.setAttribute("id" , "j");
+            var innerDiv = document.createElement("div");
+            innerDiv.setAttribute("class" , "card");
+            var innerDiv1 = document.createElement("div");
+            innerDiv1.setAttribute("class" , "header");
+            var button = document.createElement("button");
+            button.setAttribute("class" , "btn btn-info btn-fill pull-right");
+            //alert(app_list[j]);
+            button.setAttribute("id" , data[j]["hostname"]);
+            button.addEventListener("click",function(){ alert(this.id);loadSlave(this.id);});
+            button.innerHTML="View";
+            var text = document.createElement("h5");
+            text.setAttribute("class" ,"title");
+            text.innerHTML = data[j]["hostname"];
+            var divContent = document.createElement("div");
+            divContent.setAttribute("class" , "content");
+            var divfoot = document.createElement("div");
+            divfoot.setAttribute("class" , "footer");
+            var divstat1 = document.createElement("div");
+            divstat1.setAttribute("class" , "stats");
+            divstat1.innerHTML = data[j]["cpus"];
+            var hr = document.createElement("hr");
+            var divstat2 = document.createElement("div");
+            divstat2.setAttribute("class" , "stats");
+            divstat2.innerHTML = data[j]["mem"];
+            divfoot.appendChild(divstat1);
+            divfoot.appendChild(hr);
+            divfoot.appendChild(divstat2);
+            divContent.appendChild(divfoot);
+            innerDiv1.appendChild(button);
+            innerDiv1.appendChild(text);
+            innerDiv.appendChild(innerDiv1);
+            innerDiv.appendChild(divContent);
+            outterDiv.appendChild(innerDiv);
+            elem.appendChild(outterDiv);
           obj.slaveHost.push(data["hostname"]);
       }
       }
@@ -123,9 +183,9 @@ var obj = {
     obj.slaveSync = setInterval(obj.getSlaves , 50000);
 
   },
-  getUtil : function(){
+  getUtil : function(host){
     obj.xhr.onreadystatechange = obj.cpuSlave;
-    obj.xhr.open("GET" , "http://10.10.1.71:1234/stat");
+    obj.xhr.open("GET" , "http://10.10.1.71:1234/stat?system="+host);
     obj.xhr.send();
   },
   cpuSlave : function(){
@@ -204,22 +264,22 @@ var obj = {
       //elem3.setAttribute("class" , "c100 p"+parseInt(data["io"])+" big orange");
       //var elem33 = document.getElementById("ioVal");
       //elem33.innerHTML = parseInt(data["io"]);
-      appUtilSync = setInterval(function(){ obj.getAppUtils('cassandraseed')} , 10000);
+      appUtilSync = setInterval(function(){ obj.getAppUtils(readCookie('app_name'))} , 10000);
     }
   }
 
 };
 
 function loadSlave(name){
-  var elem = document.getElementById("slave_host_name");
-  alert(elem.innerHTML);
-  createCookie('slave_host',elem.innerHTML,7);
+  //var elem = document.getElementById("slave_host_name");
+  alert(name);
+  createCookie('slave_host',name,7);
   window.location.href = "./system.html";
 }
 
-function loadApp(){
-  //alert(elem.innerHTML);
-  //createCookie('slave_host',elem.innerHTML,7);
+function loadApp(name){
+  alert(name);
+  createCookie('app_name',name,7);
   window.location.href = "./app.html";
 }
 
@@ -253,7 +313,7 @@ function updateSlavePage(){
   alert(host);
   var elem = document.getElementById("slaveName");
   elem.innerHTML = host;
-  obj.getUtil();
+  obj.getUtil(host);
 }
 
 function updateAppPage(){
