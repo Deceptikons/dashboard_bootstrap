@@ -8,12 +8,12 @@ var obj = {
   appUtilSync : null,
   getAppName : function(){
     obj.xhr.onreadystatechange = obj.appList;
-    obj.xhr.open("GET" , "http://127.0.0.1:5000/status",true);
+    obj.xhr.open("GET" , "http://10.10.1.71:5000/status",true);
     obj.xhr.send();
   },
   getUpdateApps : function(){
     obj.xhr.onreadystatechange = obj.syncApp;
-    obj.xhr.open("GET" , "http://127.0.0.1:5000/status",true);
+    obj.xhr.open("GET" , "http://10.10.1.71:5000/status",true);
     obj.xhr.send();
   },
   syncApp : function(){
@@ -52,12 +52,12 @@ var obj = {
   },
   getID : function(url){
     obj.xhr.onreadystatechange = obj.display;
-    obj.xhr.open("GET" , "http://127.0.0.1:5000/status");
+    obj.xhr.open("GET" , "http://10.10.1.71:5000/status");
     obj.xhr.send();
   },
   getlog : function(taskID){
     obj.xhr.onreadystatechange = obj.displaylog;
-    obj.xhr.open("GET" , "http://127.0.0.1:5000/appData?appID="+taskID);
+    obj.xhr.open("GET" , "http://10.10.1.71:5000/appData?appID="+taskID);
     obj.xhr.send();
   },
   displaylog : function(){
@@ -88,7 +88,7 @@ var obj = {
   },
   queryDNS : function(appID){
     obj.xhr.onreadystatechange = obj.displayIP;
-    obj.xhr.open("GET" , "http://127.0.0.1:5000/dnsQuery?appID="+appID,true);
+    obj.xhr.open("GET" , "http://10.10.1.71:5000/dnsQuery?appID="+appID,true);
     obj.xhr.send();
   },
   displayIP:function(){
@@ -101,17 +101,21 @@ var obj = {
   getSlaves : function(){
 
     obj.xhr.onreadystatechange = obj.appendSlave;
-    obj.xhr.open("GET" , "http://127.0.0.1:5000/getSlaves",true);
+    obj.xhr.open("GET" , "http://10.10.1.71:5000/getSlaves",true);
     obj.xhr.send();
     //obj.getAppName();
   },
   appendSlave : function(){
     if(obj.xhr.readyState == 4 && obj.xhr.status== 200){
       var data = JSON.parse(this.responseText);
-      if(obj.slaveHost.indexOf(data["hostname"]) == -1){
+      for(var j=0;j<data.length;j++){
+      alert(data[j]);
+      alert(data[j]["hostname"]);
+      if(obj.slaveHost.indexOf(data[j]["hostname"]) == -1){
           var elem = document.getElementById("slaves");
-          elem.innerHTML+="<div class='col-md-4'><div class='card'><div class='header'><h5 class='title' id ='slave_host_name'>"+data["hostname"]+"</h5><button class='btn btn-info btn-fill pull-right' onclick='loadSlave()'> View </button></div><div class='content'><div class='footer'><hr><div class='stats'>CPU : "+data["cpus"]+"</div><hr><div class='stats'>Memory : "+data["mem"]+"</div></div></div></div></div>"
+          elem.innerHTML+="<div class='col-md-4'><div class='card'><div class='header'><h5 class='title' id ='slave_host_name'>"+data[j]["hostname"]+"</h5><button class='btn btn-info btn-fill pull-right' onclick='loadSlave()'> View </button></div><div class='content'><div class='footer'><hr><div class='stats'>CPU : "+data[j]["cpus"]+"</div><hr><div class='stats'>Memory : "+data[j]["mem"]+"</div></div></div></div></div>"
           obj.slaveHost.push(data["hostname"]);
+      }
       }
       obj.getAppName();
     }
@@ -120,7 +124,7 @@ var obj = {
   },
   getUtil : function(){
     obj.xhr.onreadystatechange = obj.cpuSlave;
-    obj.xhr.open("GET" , "http://127.0.0.1:1234/stat");
+    obj.xhr.open("GET" , "http://10.10.1.71:1234/stat");
     obj.xhr.send();
   },
   cpuSlave : function(){
@@ -144,7 +148,7 @@ var obj = {
     var app_json = {"name":app_name,"cpu":app_cpu,"ram":app_ram, "command":app_command,"docker_image":docker_image,"storage":"False"}
     var data = JSON.stringify(app_json);
     alert(data);
-    obj.xhr.open("POST" , "http://127.0.0.1:5000/submit");
+    obj.xhr.open("POST" , "http://10.10.1.71:5000/submit");
     obj.xhr.setRequestHeader("Content-type", "application/json");
     obj.xhr.send(data);
   },
@@ -155,7 +159,7 @@ var obj = {
   },
   appDetails : function(name){
     obj.xhr.onreadystatechange = obj.updatePage;
-    obj.xhr.open("GET", "http://127.0.0.1:5000/appDetails?appName="+name);
+    obj.xhr.open("GET", "http://10.10.1.71:5000/appDetails?appName="+name);
     obj.xhr.send();
   },
   updatePage : function(){
@@ -178,7 +182,7 @@ var obj = {
   getAppUtils : function(name){
     obj.xhr.onreadystatechange = obj.updateAppUtil;
     //alert(name);
-    obj.xhr.open("GET","http://127.0.0.1:5000/appCPUUtil?appName="+name,true);
+    obj.xhr.open("GET","http://10.10.1.71:5000/appCPUUtil?appName="+name,true);
     obj.xhr.send();
   },
   updateAppUtil : function(){

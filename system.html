@@ -201,19 +201,19 @@
 
 				 		 		<p>
 				 		 			<button class="fetchSeries">First dataset</button>
-				 		 			[ <a href="http://127.0.0.1:1234/getIdle?cpu=0">see data</a> ]
+				 		 			[ <a href="http://10.10.1.71:1234/getIdle?cpu=0">see data</a> ]
 				 		 			<span>Default</span>
 				 		 		</p>
 
 				 		 		<p>
 				 		 			<button class="fetchSeries">Second dataset</button>
-				 		 			[ <a href="http://127.0.0.1:1234/getIdle?cpu=1">see data</a> ]
+				 		 			[ <a href="http://10.10.1.71:1234/getIdle?cpu=1">see data</a> ]
 				 		 			<span>Default</span>
 				 		 		</p>
 
 				 		 		<p>
 				 		 			<button class="fetchSeries">Third dataset</button>
-				 		 			[ <a href="http://127.0.0.1:1234/getIdle?cpu=2">see data</a> ]
+				 		 			[ <a href="http://10.10.1.71:1234/getIdle?cpu=2">see data</a> ]
 				 		 			<span>Default</span>
 				 		 		</p>
 
@@ -374,7 +374,7 @@
 				// files, so we need to modify the URL.
 
 				$.ajax({
-					url: "http://127.0.0.1:1234/getIdle?cpu=0",
+					url: "http://10.10.1.71:1234/getIdle?cpu=0",
 					type: "GET",
 					dataType: "json",
 					success: onDataReceived
