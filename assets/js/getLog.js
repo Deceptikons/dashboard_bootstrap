@@ -40,7 +40,8 @@ var obj = {
       for(var j =0;j<app_list.length;j++){
         if(obj.apps.indexOf(app_list[j]) == -1){
             //alert("Inside");
-            var taskid = Object.keys(data[app_list[j]])[1];
+            var taskid = Object.values(data[app_list[j]])[0];
+            //alert(taskid);
             elem.innerHTML += "<div class='col-md-12' id = 'j'"+j.toString()+"><div class='card'><div class='header'><button class='btn btn-info btn-fill pull-right' onclick='loadApp()'> View </button><h5 class='title' id = 'app_name'>"+app_list[j]+"  "+taskid+"</h5></div><div class='content'><hr><div class='stats'><i class='fa fa-clock-o'></i> Launched 3 hours ago</div></div></div></div>";
             createCookie('app_name',app_list[j],7);
             obj.apps.push(app_list[j]);
