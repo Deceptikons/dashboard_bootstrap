@@ -11,6 +11,25 @@ var obj = {
     obj.xhr.open("GET" , "http://127.0.0.1:5000/status",true);
     obj.xhr.send();
   },
+  getUpdateApps : function(){
+    obj.xhr.onreadystatechange = obj.syncApp;
+    obj.xhr.open("GET" , "http://127.0.0.1:5000/status",true);
+    obj.xhr.send();
+  },
+  syncApp : function(){
+    if(obj.xhr.readyState == 4 && obj.xhr.status == 200){
+      var data = JSON.parse(this.responseText);
+      var app_list = Object.keys(data);
+      var elem = document.getElementById("apps");
+      for(var j =0;j<obj.apps.length;j++){
+        if(app_list.indexOf(obj.apps[j])== -1){
+          var elem1 = document.getElementById("j"+str(j));
+          elem1.parentNode.removeChild(elem1);
+        }
+      }
+    }
+    setInterval(getUpdateApps , 10000);
+  },
   appList : function(){
     if(obj.xhr.readyState == 4 && obj.xhr.status == 200){
       var data = JSON.parse(this.responseText);
@@ -21,7 +40,8 @@ var obj = {
       for(var j =0;j<app_list.length;j++){
         if(obj.apps.indexOf(app_list[j]) == -1){
             //alert("Inside");
-            elem.innerHTML += "<div class='col-md-12'><div class='card'><div class='header'><button class='btn btn-info btn-fill pull-right' onclick='loadApp()'> View </button><h5 class='title' id = 'app_name'>"+app_list[j]+"</h5></div><div class='content'><hr><div class='stats'><i class='fa fa-clock-o'></i> Launched 3 hours ago</div></div></div></div>";
+            var taskid = Object.keys(data[app_list[j]])[1];
+            elem.innerHTML += "<div class='col-md-12' id = 'j'"+j.toString()+"><div class='card'><div class='header'><button class='btn btn-info btn-fill pull-right' onclick='loadApp()'> View </button><h5 class='title' id = 'app_name'>"+app_list[j]+"  "+taskid+"</h5></div><div class='content'><hr><div class='stats'><i class='fa fa-clock-o'></i> Launched 3 hours ago</div></div></div></div>";
             createCookie('app_name',app_list[j],7);
             obj.apps.push(app_list[j]);
             // TODO write an onclicklistener and pass the app Name
@@ -67,9 +87,16 @@ var obj = {
 		}
   },
   queryDNS : function(appID){
-    obj.xhr.onreadystatechange = obj.display;
-    obj.xhr.open("GET" , "http://10.10.1.71:8123/v1/hosts/"+appID+".MyMesosDockerExample.mesos")
+    obj.xhr.onreadystatechange = obj.displayIP;
+    obj.xhr.open("GET" , "http://127.0.0.1:5000/dnsQuery?appID="+appID,true);
     obj.xhr.send();
+  },
+  displayIP:function(){
+    if(obj.xhr.readyState == 4 && obj.xhr.status == 200){
+      alert(this.responseText);
+      var elem = document.getElementById("ip");
+      elem.innerHTML = this.responseText;
+    }
   },
   getSlaves : function(){
 
@@ -143,6 +170,7 @@ var obj = {
       document.getElementById("ram").innerHTML = data["ram"];
       document.getElementById("command").innerHTML = data["command"];
       document.getElementById("doc_img").innerHTML = data["docker_image"];
+      obj.queryDNS(data["name"]);
       obj.getAppUtils(data["name"]);
 
     }
@@ -229,6 +257,7 @@ function updateAppPage(){
   var elem = document.getElementById("appName");
   elem.innerHTML = app_name;
   obj.appDetails(app_name);
+
 }
 
 //obj.getData("get");
