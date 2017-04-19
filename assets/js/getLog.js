@@ -28,7 +28,7 @@ var obj = {
         }
       }
     }
-    setInterval(getUpdateApps , 10000);
+    setTimeout(getUpdateApps , 10000);
   },
   appList : function(){
     if(obj.xhr.readyState == 4 && obj.xhr.status == 200){
@@ -70,7 +70,7 @@ var obj = {
             // TODO write an onclicklistener and pass the app Name
         }
       }
-      appSync = setInterval(obj.getAppName, 10000);
+      appSync = setTimeout(obj.getAppName, 10000);
     }
   },
   getID : function(url){
@@ -80,7 +80,7 @@ var obj = {
   },
   getlog : function(taskID){
     obj.xhr.onreadystatechange = obj.displaylog;
-    obj.xhr.open("GET" , "http://10.10.1.71:5000/appData?appID="+taskID);
+    obj.xhr.open("GET" , "http://10.10.1.71:5000/appData?appID="+taskID,false);
     obj.xhr.send();
   },
   displaylog : function(){
@@ -101,8 +101,8 @@ var obj = {
       //for each(var a in data){
         //alert(data);
         //alert(Object.keys(data));
-        taskID = Object.keys(data["cassandraseed"]);
-        //alert(taskID);
+        taskID = Object.keys(data[readCookie('app_name')]);
+        alert(taskID);
         obj.getlog(taskID);
       //}
 			//document.getElementById("mydat").innerHTML += this.responseText;
@@ -111,7 +111,7 @@ var obj = {
   },
   queryDNS : function(appID){
     obj.xhr.onreadystatechange = obj.displayIP;
-    obj.xhr.open("GET" , "http://10.10.1.71:5000/dnsQuery?appID="+appID,true);
+    obj.xhr.open("GET" , "http://10.10.1.71:5000/dnsQuery?appID="+appID);
     obj.xhr.send();
   },
   displayIP:function(){
@@ -119,6 +119,10 @@ var obj = {
       alert(this.responseText);
       var elem = document.getElementById("ip");
       elem.innerHTML = this.responseText;
+      createCookie('app_ip',this.responseText,7);
+      alert(readCookie('app_ip'));
+
+      obj.getLatency(readCookie('app_ip'));
     }
   },
   getSlaves : function(){
@@ -148,7 +152,7 @@ var obj = {
             var button = document.createElement("button");
             button.setAttribute("class" , "btn btn-info btn-fill pull-right");
             //alert(app_list[j]);
-            button.setAttribute("id" , data[j]["hostname"]);
+            button.setAttribute("id" , data[j]["hostname"]+"@"+data[j]["ip"]);
             button.addEventListener("click",function(){ alert(this.id);loadSlave(this.id);});
             button.innerHTML="View";
             var text = document.createElement("h5");
@@ -180,7 +184,7 @@ var obj = {
       }
       obj.getAppName();
     }
-    obj.slaveSync = setInterval(obj.getSlaves , 50000);
+    //obj.slaveSync = setTimeout(obj.getSlaves , 50000);
 
   },
   getUtil : function(host){
@@ -195,7 +199,45 @@ var obj = {
       elem.setAttribute("class" , "c100 p"+parseInt(this.responseText)+" big orange");
       var elem1 = document.getElementById("cpuVal");
       elem1.innerHTML=parseInt(this.responseText);
-      slaveCpuSync = setInterval(obj.getUtil, 10000);
+      var ip = readCookie('slave_ip');
+      slaveCpuSync = setTimeout(function(){ obj.getUtil(readCookie('slave_ip'));}, 10000);
+      obj.getMem();
+
+    }
+  },
+  getLatency : function(host){
+    obj.xhr.onreadystatechange = obj.latency;
+    obj.xhr.open("GET" , "http://10.10.1.71:1234/throughput?ip="+host,true);
+    obj.xhr.send();
+    var lat = setTimeout(function(){ obj.getLatency(readCookie('app_ip'));}, 4000);
+  },
+  latency : function(){
+    if(obj.xhr.readyState == 4 && obj.xhr.status== 200){
+      //var elem = document.getElementById("cpuStat");
+      //alert(parseFloat(this.responseText));
+      var data  = JSON.parse(this.responseText);
+      //elem.setAttribute("class" , "c100 p"+parseInt(this.responseText)+" big orange");
+      var elem1 = document.getElementById("throughputVal");
+      //alert(data);
+      //alert(data[0]["values"]);
+      elem1.innerHTML=parseInt(data[0]["values"]);
+      var ip = readCookie('app_ip');
+      //obj.getMem();
+    }
+  },
+  getMem :function(){
+    obj.xhr.onreadystatechange = obj.memSlave;
+    obj.xhr.open("GET" , "http://10.10.1.71:1234/memory?ip="+readCookie('slave_ip'));
+    obj.xhr.send();
+  },
+  memSlave : function(){
+    if(obj.xhr.readyState == 4 && obj.xhr.status == 200){
+      var elem = document.getElementById("memStat");
+      alert(this.responseText);
+      elem.setAttribute("class" , "c100 p"+parseInt(this.responseText)+" big orange");
+      var elem1 = document.getElementById("memVal");
+      elem1.innerHTML=parseInt(this.responseText);
+      setTimeout(obj.getMem,40000);
     }
   },
   uploadApp : function(){
@@ -226,6 +268,7 @@ var obj = {
   updatePage : function(){
     if(obj.xhr.readyState == 4 && obj.xhr.status == 200){
       var data = JSON.parse(this.responseText);
+      obj.queryDNS(data["name"]);
       alert("UpdatePAege :"+data["name"]);
       document.getElementById("appName").innerHTML = data["name"];
       //document.getElementById("hostname").value = data["hostname"];
@@ -235,9 +278,9 @@ var obj = {
       document.getElementById("ram").innerHTML = data["ram"];
       document.getElementById("command").innerHTML = data["command"];
       document.getElementById("doc_img").innerHTML = data["docker_image"];
-      obj.queryDNS(data["name"]);
-      obj.getAppUtils(data["name"]);
+      //obj.getAppUtils(data["name"]);
 
+      appUtilSync = setTimeout(function(){ obj.getAppUtils(readCookie('app_name'))} , 3000);
     }
   },
   getAppUtils : function(name){
@@ -264,7 +307,7 @@ var obj = {
       //elem3.setAttribute("class" , "c100 p"+parseInt(data["io"])+" big orange");
       //var elem33 = document.getElementById("ioVal");
       //elem33.innerHTML = parseInt(data["io"]);
-      appUtilSync = setInterval(function(){ obj.getAppUtils(readCookie('app_name'))} , 10000);
+      appUtilSync = setTimeout(function(){ obj.getAppUtils(readCookie('app_name'))} , 5000);
     }
   }
 
@@ -273,7 +316,10 @@ var obj = {
 function loadSlave(name){
   //var elem = document.getElementById("slave_host_name");
   alert(name);
-  createCookie('slave_host',name,7);
+  var res = name.split("@");
+
+  createCookie('slave_host',res[0],7);
+  createCookie('slave_ip',res[1],7);
   window.location.href = "./system.html";
 }
 
@@ -311,9 +357,11 @@ function eraseCookie(name) {
 function updateSlavePage(){
   var host = readCookie('slave_host');
   alert(host);
+  var ip = readCookie('slave_ip');
+  alert(ip);
   var elem = document.getElementById("slaveName");
   elem.innerHTML = host;
-  obj.getUtil(host);
+  obj.getUtil(ip);
 }
 
 function updateAppPage(){
@@ -322,7 +370,6 @@ function updateAppPage(){
   var elem = document.getElementById("appName");
   elem.innerHTML = app_name;
   obj.appDetails(app_name);
-
 }
 
 //obj.getData("get");

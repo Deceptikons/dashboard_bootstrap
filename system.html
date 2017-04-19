@@ -137,8 +137,8 @@
                             <div class="content">
                                 <div class="clearfix" style="padding-left:20px;">
 
-                                    <div class="c100 p50 big orange">
-                                        <span>50%</span>
+                                    <div id="memStat" class="c100 p50 big orange">
+                                        <span id="memVal">50%</span>
                                         <div class="slice">
                                             <div class="bar"></div>
                                             <div class="fill"></div>
@@ -156,6 +156,7 @@
                             </div>
                         </div>
                     </div>
+                    <!--
                     <div class="col-md-4">
                         <div class="card">
                             <div class="header">
@@ -185,7 +186,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div>-->
                         <br>
                     </div>
 
@@ -199,22 +200,32 @@
 
 
 
-				 		 		<p>
+				 		 		<p id="cpu0">
 				 		 			<button class="fetchSeries">First dataset</button>
-				 		 			[ <a href="http://10.10.1.71:1234/getIdle?cpu=0">see data</a> ]
-				 		 			<span>Default</span>
+                  <script> var elem = document.createElement("a");
+                           elem.setAttribute("href" , "http://10.10.1.71:1234/getIdle?cpu=0&ip="+readCookie('slave_ip'));
+                           elem.innerHTML = "See Data";
+                           document.getElementById("cpu0").appendChild(elem);
+                  </script>
+
 				 		 		</p>
 
-				 		 		<p>
+				 		 		<p id="cpu1">
 				 		 			<button class="fetchSeries">Second dataset</button>
-				 		 			[ <a href="http://10.10.1.71:1234/getIdle?cpu=1">see data</a> ]
-				 		 			<span>Default</span>
+                  <script> var elem = document.createElement("a");
+                           elem.setAttribute("href" , "http://10.10.1.71:1234/getIdle?cpu=1&ip="+readCookie('slave_ip'));
+                           elem.innerHTML = "See Data";
+                           document.getElementById("cpu1").appendChild(elem);
+                  </script>
 				 		 		</p>
 
-				 		 		<p>
+				 		 		<p id="cpu2">
 				 		 			<button class="fetchSeries">Third dataset</button>
-				 		 			[ <a href="http://10.10.1.71:1234/getIdle?cpu=2">see data</a> ]
-				 		 			<span>Default</span>
+                  <script> var elem = document.createElement("a");
+                           elem.setAttribute("href" , "http://10.10.1.71:1234/getIdle?cpu=2&ip="+readCookie('slave_ip'));
+                           elem.innerHTML = "See Data";
+                           document.getElementById("cpu2").appendChild(elem);
+                  </script>
 				 		 		</p>
 
 				 		 		<p>If you combine AJAX with setTimeout, you can poll the server for new data.</p>
