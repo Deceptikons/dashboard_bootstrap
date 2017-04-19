@@ -64,6 +64,12 @@ var obj = {
             innerDiv1.appendChild(button);
             innerDiv1.appendChild(text);
             innerDiv.appendChild(innerDiv1);
+            var innerDiv2 =document.createElement("div");
+            innerDiv2.setAttribute("class","content");
+            var innerDiv21 = document.createElement("div");
+            innerDiv21.setAttribute("class","stats");
+            innerDiv2.appendChild(innerDiv21);
+            innerDiv.appendChild(innerDiv2);
             outterDiv.appendChild(innerDiv);
             elem.appendChild(outterDiv);
             obj.apps.push(app_list[j]);
